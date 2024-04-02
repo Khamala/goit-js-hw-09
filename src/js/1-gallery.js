@@ -97,6 +97,6 @@ const options = {
   captionsData: 'alt',  
 };
 
-const lightbox = new SimpleLightbox('.gallery-link', options);
+const lightbox = new SimpleLightbox('.gallery a', options);
 
 

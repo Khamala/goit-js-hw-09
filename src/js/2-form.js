@@ -1,45 +1,44 @@
 const STORAGE_KEY = 'feedback-form-state';
 
 const form = document.querySelector('.feedback-form');
-const email = form.elements.email;
-const textarea = form.elements.message;
+const email = form.querySelector('input')
+const textarea = form.querySelector('textarea'); 
 
-form.addEventListener('input', handlerEmailAndMessage);
+// console.log(form);
+// console.log(email);
+// console.log(textarea);
 
-function handlerEmailAndMessage() {
+form.addEventListener("input", handlerForm);
+form.addEventListener("submit", handlerSubmitForm);
 
-  const objectForm = {
-    email: email.value.trim(),
-    message: textarea.value.trim(),
-  };
+function handlerForm() {
+    const objectDateForm = {
+        email: email.value.trim(),
+        message: textarea.value.trim(),
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(objectDateForm));
+}
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(objectForm));
-};
+// Проверяю состояние хранилища при загрузке страницы
 
 function updateFormContent() {
-
     const formUpdate = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     
-    if (formUpdate.email) {
-        email.value = formUpdate.email;
-    } else {
-        email.value = "";
-    }
-
-    if (formUpdate.message) {
-        textarea.value = formUpdate.message
-    } else {
-        textarea.value = "";
-    }
+    email.value = formUpdate.email ?? '';
+    textarea.value = formUpdate.message ?? '';
 }
 
 updateFormContent();
 
+function handlerSubmitForm(event) {
+    event.preventDefault();
+    const formSubmit = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
-form.addEventListener("submit", handleSubmit);
+    // проверяю оба ли поля заполнены, если да, то консолю
+    if (formSubmit.email && formSubmit.message) {
+    console.log(formSubmit);
 
-function handleSubmit(e) {
-    e.preventDefault();
-    e.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
+    form.reset();
+  }
 }
