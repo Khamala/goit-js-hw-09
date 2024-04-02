@@ -8,5 +8,5 @@ import"./assets/modulepreload-polyfill-3cfb730f.js";import{S as t}from"./assets/
     />
   </a>
 </li>
-  `).join("")}const s={captionDelay:250,captionsData:"alt"};new t(".gallery-link",s);
+  `).join("")}const s={captionDelay:250,captionsData:"alt"};new t(".gallery a",s);
 //# sourceMappingURL=commonHelpers.js.map
